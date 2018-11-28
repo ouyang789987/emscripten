@@ -1619,18 +1619,12 @@ addOnPreRun(function() { addRunDependency('pgo') });
 }}}
 
 addOnPreRun(function() {
-  function runPostSets() {
-    if (Module['asm']['runPostSets']) {
-      Module['asm']['runPostSets']();
-    }
-  }
   function loadDynamicLibraries(libs) {
     if (libs) {
       libs.forEach(function(lib) {
         loadDynamicLibrary(lib);
       });
     }
-    runPostSets();
   }
   // if we can load dynamic libraries synchronously, do so, otherwise, preload
 #if WASM
@@ -1641,7 +1635,6 @@ addOnPreRun(function() {
       return loadDynamicLibrary(lib, {loadAsync: true});
     })).then(function() {
       // we got them all, wonderful
-      runPostSets();
       removeRunDependency('preload_dynamicLibraries');
     });
     return;

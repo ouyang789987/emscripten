@@ -5486,9 +5486,9 @@ return malloc(size);
       print('verifing postsets')
       generated = open('src.cpp.o.js').read()
       generated = re.sub(r'\n+[ \n]*\n+', '\n', generated)
-      main = generated[generated.find('function runPostSets'):]
+      main = generated[generated.find('function __apply_relocations'):]
       main = main[:main.find('\n}')]
-      assert main.count('\n') <= 7, ('must not emit too many js_transform: %d' % main.count('\n')) + ' : ' + main
+      assert main.count('\n') <= 7, ('must not emit too many relocations: %d' % main.count('\n')) + ' : ' + main
 
     # TODO: wrappers for wasm modules
     if not self.is_wasm():
